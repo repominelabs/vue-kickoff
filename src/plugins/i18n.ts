@@ -5,8 +5,8 @@ import { tr, en, de, fr, es, cn } from '../utils/locales'
 const messages = { tr, en, de, fr, es, cn }
 
 export const i18n = createI18n({
-    locale: 'tr',
-    fallbackLocale: 'tr',
+    locale: 'en',
+    fallbackLocale: 'en',
     messages,
     silentFallbackWarn: true
 })

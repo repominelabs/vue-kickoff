@@ -1,9 +1,10 @@
 import { IPrivilege } from './privilege.types'
 
 export interface IRole {
-    roleId: number,
+    roleId?: number,
     roleName: string,
-    privileges: IPrivilege[],
+    color?: string,
+    privileges?: IPrivilege[],
 }
 
 export interface IRoleState {

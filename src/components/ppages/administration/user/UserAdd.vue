@@ -28,8 +28,11 @@ function create() {
             <form class="my-4">
                 <input v-model="user.username" type="text" class="form-control mb-4" placeholder="Username" required />
                 <input v-model="user.password" type="password" class="form-control mb-4" placeholder="Password" required />
+                <input type="text" class="form-control mb-4" placeholder="Name" required />
+                <input type="text" class="form-control mb-4" placeholder="Surname" required />
                 <input v-model="user.email" type="email" class="form-control mb-4" placeholder="Email" required />
                 <input v-model="user.phone" type="text" class="form-control mb-4" placeholder="Phone number" required />
+                <input type="date" class="form-control mb-4" placeholder="Date of birth" required />
                 <div class="form-check form-check-inline">
                     <input v-model="user.gender" class="form-check-input" type="radio" name="inlineRadioOptions" value="female" />
                     <label class="form-check-label">Female</label>

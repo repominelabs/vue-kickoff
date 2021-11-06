@@ -9,11 +9,11 @@ import UserCardList from './UserCardList.vue'
         <div class="col-lg-3">
             <UserCardList />
         </div>
-        <div class="col-lg-3">
-            <UserAdd />
-        </div>
         <div class="col-lg-6">
             <UserAddMultiple />
+        </div>
+        <div class="col-lg-3">
+            <UserAdd />
         </div>
     </div>
 </template>

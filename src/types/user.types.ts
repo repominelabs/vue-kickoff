@@ -3,13 +3,13 @@ import { IRole } from './role.types'
 export interface IUser {
     userId?: number,
     username: string,
-    password: string,
+    password?: string,
     name: string,
     surname: string,
     email: string,
     phone: string,
     gender: string,
-    dateOfBirth?: string,
+    dateOfBirth?: Date,
     address: string,
     roles?: IRole[],
 }
@@ -29,4 +29,9 @@ export interface IUserSearchReq {
 export interface IUserSearchResp {
     length: number,
     users: IUser[]
+}
+
+export interface IUserRoleReq {
+    userId?: number,
+    roleId?: number,
 }
