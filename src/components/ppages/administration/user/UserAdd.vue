@@ -1,7 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, getCurrentInstance } from 'vue'
+import { useStore } from 'vuex'
 import { IUser } from '../../../../types'
 
+// Data variables
+const app = getCurrentInstance()
+const $toast = app?.appContext.config.globalProperties.$toast
+const $swal = app?.appContext.config.globalProperties.$swal
+const store = useStore()
 const user = ref<IUser>({
     username: '',
     password: '',
@@ -12,8 +18,14 @@ const user = ref<IUser>({
     gender: '',
     address: ''
 })
-function create() {
-    console.log(user.value)
+
+// Methods
+async function create() {
+    await store.dispatch('user/save', user.value).then(resp => {
+        $toast.fire({ icon: 'success', title: 'User created' })
+    }).catch(err => {
+        $toast.fire({ icon: 'error', title: 'Create user failed' })
+    })
 }
 </script>
 
@@ -22,10 +34,10 @@ function create() {
         <div class="card-body">
             <h5 class="card-title">
                 <i class="bi bi-plus"></i>
-                Add User
+                Add user
             </h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <form class="my-4">
+            <h6 class="card-subtitle mb-2 text-muted">Creating a single user</h6>
+            <form class="my-4" @submit.prevent="create">
                 <input v-model="user.username" type="text" class="form-control mb-4" placeholder="Username" required />
                 <input v-model="user.password" type="password" class="form-control mb-4" placeholder="Password" required />
                 <input type="text" class="form-control mb-4" placeholder="Name" required />
@@ -41,7 +53,7 @@ function create() {
                     <input v-model="user.gender" class="form-check-input" type="radio" name="inlineRadioOptions" value="male" />
                     <label class="form-check-label">Male</label>
                 </div>
-                <button @click="create" type="submit" class="btn btn-outline-warning w-100">Create</button>
+                <button type="submit" class="btn btn-outline-warning w-100">Create</button>
             </form>
         </div>
     </div>

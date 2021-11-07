@@ -118,14 +118,14 @@ async function deleteUserRole(roleId: number | undefined, roleIndex: number) {
         <div v-else>
             <!-- User Editable Card Body - start -->
             <div class="card-body">
-                <form>
+                <form @submit.prevent="update">
                     <h5 class="card-title mb-4">
-                        <a @click="flag = !flag" class="btn btn-light rounded me-3">
+                        <button @click="flag = !flag" class="btn btn-light rounded me-3">
                             <i class="bi bi-x-lg text-warning"></i>
-                        </a>
-                        <a @click="update" class="btn btn-light rounded">
+                        </button>
+                        <button type="submit" class="btn btn-light rounded">
                             <i class="bi bi-save text-info"></i>
-                        </a>
+                        </button>
                     </h5>
                     <input v-model="editedUser.username" type="text" class="form-control mb-4" placeholder="Username" required />
                     <input v-model="editedUser.password" type="password" class="form-control mb-4" placeholder="Password" required />
@@ -142,30 +142,29 @@ async function deleteUserRole(roleId: number | undefined, roleIndex: number) {
                         <input v-model="editedUser.gender" class="form-check-input" type="radio" name="inlineRadioOptions" value="male" />
                         <label class="form-check-label">Male</label>
                     </div>
-                    <br />
-                    <p class="card-text mb-3">
-                        <label class="mb-3 border-bottom">Owned Roles</label>
-                        <br />
-                        <span v-for="(role, i) in editedUser?.roles" :key="i" :class="`position-relative badge me-3 bg-${role?.color}`">
-                            {{ role?.roleName }}
-                            <button @click="deleteUserRole(role?.roleId, i)" class="btn btn-light border position-absolute top-0 start-100 translate-middle badge rounded-pill">
-                                <i class="bi bi-x-lg text-warning"></i>
-                                <span class="visually-hidden">delete</span>
-                            </button>
-                        </span>
-                    </p>
-                    <p class="card-text">
-                        <label class="mb-3 border-bottom">All Roles</label>
-                        <br />
-                        <span v-for="(role, i) in editedUser?.roles" :key="i" :class="`position-relative badge me-3 bg-${role?.color}`">
-                            {{ role?.roleName }}
-                            <button @click="addUserRole(role, i)" class="btn btn-light border position-absolute top-0 start-100 translate-middle badge rounded-pill">
-                                <i class="bi bi-plus-lg text-info"></i>
-                                <span class="visually-hidden">add</span>
-                            </button>
-                        </span>
-                    </p>
                 </form>
+                <p class="card-text mb-3">
+                    <label class="mb-3 border-bottom">Owned Roles</label>
+                    <br />
+                    <span v-for="(role, i) in editedUser?.roles" :key="i" :class="`position-relative badge me-3 bg-${role?.color}`">
+                        {{ role?.roleName }}
+                        <button @click="deleteUserRole(role?.roleId, i)" class="btn btn-light border position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                            <i class="bi bi-x-lg text-warning"></i>
+                            <span class="visually-hidden">delete</span>
+                        </button>
+                    </span>
+                </p>
+                <p class="card-text">
+                    <label class="mb-3 border-bottom">All Roles</label>
+                    <br />
+                    <span v-for="(role, i) in editedUser?.roles" :key="i" :class="`position-relative badge me-3 bg-${role?.color}`">
+                        {{ role?.roleName }}
+                        <button @click="addUserRole(role, i)" class="btn btn-light border position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                            <i class="bi bi-plus-lg text-info"></i>
+                            <span class="visually-hidden">add</span>
+                        </button>
+                    </span>
+                </p>
             </div>
             <!-- User Editable Card Body - end -->
         </div>

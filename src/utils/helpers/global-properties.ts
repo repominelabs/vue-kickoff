@@ -1,5 +1,6 @@
 import { App } from 'vue'
 import sweetalert2 from 'sweetalert2'
+import xlsx from 'xlsx'
 
 const defineGlobalProperties = (app: App) => {
     const toast = sweetalert2.mixin({
@@ -15,6 +16,7 @@ const defineGlobalProperties = (app: App) => {
     })
     app.config.globalProperties.$toast = toast
     app.config.globalProperties.$swal = sweetalert2
+    app.config.globalProperties.$xlsx = xlsx
 }
 
 export default defineGlobalProperties
