@@ -54,7 +54,7 @@ function upload(e: Event) {
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
-            <div class="card-text" style="overflow-x: auto; overflow-y: auto; height: 600px">
+            <div class="card-text" style="overflow-x: auto; overflow-y: auto; max-height: 600px">
                 <table class="table table-hover" v-if="users">
                     <thead>
                         <tr>

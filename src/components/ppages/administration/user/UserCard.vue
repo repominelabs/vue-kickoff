@@ -56,9 +56,9 @@ async function addUserRole(role: IRole | undefined, roleIndex: number) {
 async function deleteUserRole(roleId: number | undefined, roleIndex: number) {
     const userRoleReq: IUserRoleReq = { userId: props.user?.userId, roleId }
     await store.dispatch('user/deleteUserRole', { userRoleReq, userIndex: props.index, roleIndex }).then(resp => {
-        $toast.fire({ icon: 'success', title: 'Role deleted' })
+        $toast.fire({ icon: 'success', title: 'Role removed' })
     }).catch(err => {
-        $toast.fire({ icon: 'error', title: 'Delete role failed' })
+        $toast.fire({ icon: 'error', title: 'Remove role failed' })
     })
 }
 </script>

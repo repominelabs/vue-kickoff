@@ -2,6 +2,7 @@ import Vuex, { StoreOptions } from 'vuex'
 import { IRootState } from '../types'
 import { auth } from './modules/auth.store'
 import { user } from './modules/user.store'
+import { role } from './modules/role.store'
 
 const store: StoreOptions<IRootState> = {
     state: {
@@ -9,7 +10,8 @@ const store: StoreOptions<IRootState> = {
     },
     modules: {
         auth,
-        user
+        user,
+        role
     }
 }
 

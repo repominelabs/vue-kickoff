@@ -1,6 +1,6 @@
 export interface IPrivilege {
-    privilegeId: number,
-    privilegeName: string,
+    privilegeId?: number,
+    privilegeName?: string,
 }
 
 export interface IPrivilegeState {
