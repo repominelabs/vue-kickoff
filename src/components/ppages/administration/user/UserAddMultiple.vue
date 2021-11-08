@@ -35,7 +35,7 @@ function upload(e: Event) {
 </script>
 
 <template>
-    <div class="card">
+    <div class="card mb-5">
         <div class="card-body">
             <h5 class="card-title">
                 <i class="bi bi-people"></i>
@@ -58,16 +58,16 @@ function upload(e: Event) {
                 <table class="table table-hover" v-if="users">
                     <thead>
                         <tr>
-                            <th colspan="2">#</th>
-                            <th colspan="2" v-for="(header, i) in headers" :key="i">{{ header }}</th>
-                            <th colspan="2">Test</th>
-                            <th colspan="2">Test</th>
-                            <th colspan="2">Test</th>
+                            <th class="table-light" colspan="2">#</th>
+                            <th class="table-light" colspan="2" v-for="(header, i) in headers" :key="i">{{ header }}</th>
+                            <th class="table-light" colspan="2">Test</th>
+                            <th class="table-light" colspan="2">Test</th>
+                            <th class="table-light" colspan="2">Test</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(user, i) in users" :key="i">
-                            <th scope="row">1</th>
+                            <th scope="row">{{ ++i }}</th>
                             <td colspan="2" v-for="(header, j) in headers" :key="j">{{ user[header] }}</td>
                             <td colspan="2">Test</td>
                             <td colspan="2">Test</td>

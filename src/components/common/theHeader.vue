@@ -92,7 +92,7 @@ function logout() {
             <ul class="nav nav-pills">
                 <li class="nav-item">
                     <div class="dropdown">
-                        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <button class="btn btn-light dropdown-toggle border" type="button" data-bs-toggle="dropdown">
                             <i class="bi bi-translate"></i>
                         </button>
                         <ul class="dropdown-menu">
@@ -138,7 +138,7 @@ function logout() {
                 </div>
                 <!-- Shopping Char Btn - start -->
                 <li class="nav-item ml-4">
-                    <button type="button" class="btn btn-light position-relative">
+                    <button type="button" class="btn btn-light position-relative border">
                         <i class="bi bi-cart2"></i>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
                             99+
