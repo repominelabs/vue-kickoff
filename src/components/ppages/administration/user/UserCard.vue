@@ -72,10 +72,10 @@ async function deleteUserRole(roleId: number | undefined, roleIndex: number) {
             <div class="card-body">
                 <h5 class="card-title">
                     <span class="me-3">{{ user?.name }} {{ user?.surname }}</span>
-                    <a @click="flag = !flag" class="btn btn-outline-light rounded me-2">
+                    <a @click="flag = !flag" class="btn btn-outline-light border rounded me-2">
                         <i class="bi bi-pen text-black"></i>
                     </a>
-                    <a @click="deleteUser(user?.userId)" class="btn btn-outline-light rounded">
+                    <a @click="deleteUser(user?.userId)" class="btn btn-outline-light border rounded">
                         <i class="bi bi-trash text-black"></i>
                     </a>
                 </h5>

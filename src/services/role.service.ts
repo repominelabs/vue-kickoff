@@ -17,7 +17,7 @@ class RoleService extends Api {
         return this._instance
     }
 
-    public search = async (payload: IRoleSearchReq) => await this.instance.post<IRoleSearchResp, AxiosResponse<IApiResponse<IRoleSearchResp>>, IRoleSearchReq>('user/search', payload)
+    public search = async (payload: IRoleSearchReq) => await this.instance.post<IRoleSearchResp, AxiosResponse<IApiResponse<IRoleSearchResp>>, IRoleSearchReq>('role/search', payload)
 
     public save = async (payload: IRole) => await this.instance.post<IRole, AxiosResponse<IApiResponse<IRole>>, IRole>('role/save', payload)
 

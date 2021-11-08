@@ -70,10 +70,10 @@ async function deleteRolePrivilege(privilegeId: number | undefined, privilegeInd
             <div class="card-body">
                 <h5 class="card-title">
                     <span class="me-3">{{ role?.roleName }}</span>
-                    <a @click="flag = !flag" class="btn btn-outline-light rounded me-2">
+                    <a @click="flag = !flag" class="btn btn-outline-light border rounded me-2">
                         <i class="bi bi-pen text-black"></i>
                     </a>
-                    <a @click="deleteRole(role?.roleId)" class="btn btn-outline-light rounded">
+                    <a @click="deleteRole(role?.roleId)" class="btn btn-outline-light border rounded">
                         <i class="bi bi-trash text-black"></i>
                     </a>
                 </h5>
