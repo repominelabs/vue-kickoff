@@ -38,11 +38,11 @@ function upload(e: Event) {
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">
-                <i class="bi bi-plus"></i>
+                <i class="bi bi-people"></i>
                 Add multiple user
             </h5>
             <h6 class="card-subtitle mb-2 text-muted">Creating multiple users via files</h6>
-            <div class="input-group my-4">
+            <div class="input-group my-4 w-50">
                 <input @change="upload" type="file" class="form-control" />
                 <button class="btn btn-light border" type="button">
                     <i class="bi bi-upload text-black"></i>

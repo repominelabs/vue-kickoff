@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import UserAdd from './UserAdd.vue'
-import UserCardList from './UserCardList.vue'
+import GroupAdd from './GroupAdd.vue'
+import GroupCardList from './GroupCardList.vue'
 </script>
 
 <template>
     <div class="row">
         <div class="col-lg-4">
-            <UserAdd />
+            <GroupAdd />
         </div>
         <div class="col-lg-4">
-            <UserCardList />
+            <GroupCardList />
         </div>
     </div>
 </template>

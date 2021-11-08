@@ -18,5 +18,3 @@ const roles = ref<IRole[]>(
 <template>
     <RoleCard v-for="(role, i) in roles" :role="role" :index="i" :key="i" class="mb-5" />
 </template>
-
-

@@ -33,7 +33,3 @@ class UserService extends Api {
 }
 
 export default UserService.getInstance()
-
-
-
-

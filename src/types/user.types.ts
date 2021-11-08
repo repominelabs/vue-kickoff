@@ -2,15 +2,15 @@ import { IRole } from './role.types'
 
 export interface IUser {
     userId?: number,
-    username: string,
+    username?: string,
     password?: string,
-    name: string,
-    surname: string,
-    email: string,
-    phone: string,
-    gender: string,
+    name?: string,
+    surname?: string,
+    email?: string,
+    phone?: string,
+    gender?: string,
     dateOfBirth?: Date,
-    address: string,
+    address?: string,
     roles?: IRole[],
 }
 
