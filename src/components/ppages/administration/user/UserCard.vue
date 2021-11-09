@@ -9,11 +9,6 @@ const props = defineProps<{
     index: number
 }>()
 
-// Emits
-// const emit = defineEmits<{
-//     (e: 'update', value: { user: IUser, index: number }): void
-// }>()
-
 // Data variables
 const app = getCurrentInstance()
 const $toast = app?.appContext.config.globalProperties.$toast
