@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import GroupAdd from './GroupAdd.vue'
 import GroupCardList from './GroupCardList.vue'
-import GroupSearch from './GroupSearch.vue';
 </script>
 
 <template>
@@ -11,9 +10,6 @@ import GroupSearch from './GroupSearch.vue';
         </div>
         <div class="col-lg-4">
             <GroupCardList />
-        </div>
-        <div class="col-lg-4">
-            <GroupSearch />
         </div>
     </div>
 </template>
