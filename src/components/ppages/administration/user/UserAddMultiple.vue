@@ -1,6 +1,5 @@
 <script setup lang='ts'>
 import { ref, getCurrentInstance } from 'vue'
-import { IUser } from '../../../../types'
 
 // Data variables
 const app = getCurrentInstance()

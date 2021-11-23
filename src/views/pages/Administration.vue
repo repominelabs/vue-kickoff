@@ -26,7 +26,7 @@ function setIs(component: any, search: string | null) {
                 <button @click="setIs(User, 'user')" class="nav-link active" data-bs-toggle="tab">Users</button>
                 <button @click="setIs(Role, 'role')" class="nav-link" data-bs-toggle="tab">Roles</button>
                 <button @click="setIs(Privilege, 'privilege')" class="nav-link" data-bs-toggle="tab">Privileges</button>
-                <button @click="setIs(Group, null)" class="nav-link" data-bs-toggle="tab">
+                <button @click="setIs(UserAddMultiple, null)" class="nav-link" data-bs-toggle="tab">
                     <i class="bi bi-plus-lg"></i>
                     Add Multiple
                 </button>

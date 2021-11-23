@@ -86,7 +86,7 @@ function logout() {
         <header class="d-flex px-4 flex-wrap justify-content-center py-4 border rounded">
             <!-- Header Title - start -->
             <router-link to="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <span class="fs-4">Vue Kickoff</span>
+                <span class="fs-4">Repomine Vue</span>
             </router-link>
             <!-- Header Title - end -->
             <ul class="nav nav-pills">
