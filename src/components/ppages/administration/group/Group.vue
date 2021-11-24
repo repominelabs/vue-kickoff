@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import RoleAdd from './RoleAdd.vue'
-import RoleCardList from './RoleCardList.vue'
+import GroupAdd from './GroupAdd.vue'
+import GroupCardList from './GroupCardList.vue'
 </script>
 
 <template>
     <div class="row">
         <div class="col-lg-4">
-            <RoleAdd />
+            <GroupAdd />
         </div>
         <div class="col-lg-4">
-            <RoleCardList />
+            <GroupCardList />
         </div>
     </div>
 </template>

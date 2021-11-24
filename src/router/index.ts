@@ -32,7 +32,17 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Administration',
     component: () => import('../views/pages/Administration.vue'),
     meta: {
-      layout: LayoutNav
+      layout: LayoutNav,
+      search: 'user'
+    }
+  },
+  {
+    path: '/products',
+    name: 'Products',
+    component: () => import('../views/pages/Products.vue'),
+    meta: {
+      layout: LayoutNav,
+      search: 'product'
     }
   },
   {

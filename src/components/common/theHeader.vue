@@ -1,7 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 // Data variables
+const { t } = useI18n()
+const locales = ref([
+    { name: 'Turkey', icon: '🇹🇷', lang: 'tr' },
+    { name: 'English', icon: '🇬🇧', lang: 'en' },
+    { name: 'Germany', icon: '🇩🇪', lang: 'de' },
+    { name: 'Franch', icon: '🇫🇷', lang: 'fr' },
+    { name: 'China', icon: '🇨🇳', lang: 'de' },
+    { name: 'Spain', icon: '🇪🇸', lang: 'fr' },
+])
 const features = ref([
     { name: 'Mailbox', icon: 'bi bi-mailbox', to: 'mailbox' },
     { name: 'Chat', icon: 'bi bi-chat-square-text', to: 'chat' },
@@ -76,10 +86,33 @@ function logout() {
         <header class="d-flex px-4 flex-wrap justify-content-center py-4 border rounded">
             <!-- Header Title - start -->
             <router-link to="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <span class="fs-4">Vue Kickoff</span>
+                <span class="fs-4">Repomine Vue</span>
             </router-link>
             <!-- Header Title - end -->
             <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle border" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-translate"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <div v-for="(item, i) in locales" :key="i">
+                                <li>
+                                    <a class="dropdown-item" @click="$i18n.locale = item.lang">
+                                        <span class="me-2">{{ item.icon }}</span>
+                                        <span>{{ item.name }}</span>
+                                    </a>
+                                </li>
+                                <li v-if="i != locales?.length - 1">
+                                    <hr class="dropdown-divider" />
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+                </li>
+                <div class="d-flex divider">
+                    <div class="vr"></div>
+                </div>
                 <!-- Features Dropdown Menu - start -->
                 <li class="nav-item">
                     <div class="btn-group">
@@ -92,7 +125,7 @@ function logout() {
                                         {{ feature.name }}
                                     </router-link>
                                 </li>
-                                <li v-if="i != features.length - 1">
+                                <li v-if="i != features?.length - 1">
                                     <hr class="dropdown-divider" />
                                 </li>
                             </div>
@@ -105,9 +138,9 @@ function logout() {
                 </div>
                 <!-- Shopping Char Btn - start -->
                 <li class="nav-item ml-4">
-                    <button type="button" class="btn btn-outline-info position-relative">
+                    <button type="button" class="btn btn-light position-relative border">
                         <i class="bi bi-cart2"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
                             99+
                             <span class="visually-hidden">unread messages</span>
                         </span>

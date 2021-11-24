@@ -59,32 +59,38 @@ abstract class Api {
         if (config.url !== "Identity/Authentication/Login" && error.response) {
             if (error.response.status === 401 && !config._retry) {
                 config._retry = true;
-                const refreshToken = StorageService.getItem(LOCAL_STORAGE_REFRESH_TOKEN)
-                const accessToken = StorageService.getItem(LOCAL_STORAGE_ACCESS_TOKEN)
-                this.instance.post<IRefreshToken, AxiosResponse<IApiResponse<IRefreshToken>>, IRefreshToken>('Identity/Authentication/RefreshAccessToken', { refreshToken, accessToken })
-                    .then((response) => {
-                        if (response.data.status) {
-                            // 1) Store Auth to State
-                            store.commit('auth/refreshToken', response.data.response)
+                return new Promise((resolve, reject) => {
+                    const refreshToken = StorageService.getItem(LOCAL_STORAGE_REFRESH_TOKEN)
+                    const accessToken = StorageService.getItem(LOCAL_STORAGE_ACCESS_TOKEN)
+                    this.instance.post<IRefreshToken, AxiosResponse<IApiResponse<IRefreshToken>>, IRefreshToken>('Identity/Authentication/RefreshAccessToken', { refreshToken, accessToken })
+                        .then((response) => {
+                            if (response.data.status) {
+                                // 1) Store Auth to State
+                                store.commit('auth/refreshToken', response.data.response)
 
-                            // 2) Change Content-Type header
-                            config.headers['Authorization'] = `Bearer ${StorageService.getItem(LOCAL_STORAGE_ACCESS_TOKEN)}`
+                                // 2) Change Content-Type header
+                                config.headers['Authorization'] = `Bearer ${StorageService.getItem(LOCAL_STORAGE_ACCESS_TOKEN)}`
 
-                            // 3) Return request object with axios
-                            return this.instance(config)
-                        } else {
+                                // 3) Return request object with axios
+                                this.instance(config).then(_response => {
+                                    resolve(_response)
+                                }).catch((err) => {
+                                    reject(err)
+                                })
+                            } else {
+                                store.dispatch('auth/logout').then(() => {
+                                    router.push('/login')
+                                })
+                            }
+                        })
+                        .catch(_error => {
                             store.dispatch('auth/logout').then(() => {
                                 router.push('/login')
                             })
-                        }
-                    })
-                    .catch(_error => {
-                        store.dispatch('auth/logout').then(() => {
-                            router.push('/login')
-                        })
 
-                        return Promise.reject(_error)
-                    })
+                            reject(_error)
+                        })
+                })
             } else if (error.response.status === 401) {
                 store.dispatch('auth/logout').then(() => {
                     router.push('/login')

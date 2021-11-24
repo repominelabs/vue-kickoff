@@ -1,7 +1,7 @@
 import Api from '../utils/helpers/api'
 import config from '../config'
 import { AxiosResponse } from 'axios'
-import { IApiResponse, IUser, IUserSearchReq, IUserSearchResp } from '../types'
+import { IApiResponse, IUser, IUserSearchReq, IUserSearchResp, IUserRoleReq } from '../types'
 
 class UserService extends Api {
     private static _instance?: UserService
@@ -26,10 +26,10 @@ class UserService extends Api {
     public update = async (payload: IUser) => await this.instance.put<null, AxiosResponse<IApiResponse<null>>, IUser>('user/update', payload)
 
     public delete = async (id: number) => await this.instance.delete<null, AxiosResponse<IApiResponse<null>>, IUser>(`user/delete?id=${id.toString()}`)
+
+    public addUserRole = async (payload: IUserRoleReq) => await this.instance.post<null, AxiosResponse<IApiResponse<null>>, IUserRoleReq>('user/addUserRole', payload)
+
+    public deleteUserRole = async (payload: IUserRoleReq) => await this.instance.post<null, AxiosResponse<IApiResponse<null>>, IUserRoleReq>('user/deleteUserRole', payload)
 }
 
 export default UserService.getInstance()
-
-
-
-

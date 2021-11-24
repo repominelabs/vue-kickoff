@@ -1,5 +1,6 @@
 export * from './common.types'
 export * from './auth.types'
+export * from './group.types'
 export * from './user.types'
 export * from './role.types'
 export * from './privilege.types'
