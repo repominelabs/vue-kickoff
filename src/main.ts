@@ -23,4 +23,3 @@ defineGlobalProperties(app)
 
 // Add plugins, components and etc. to the main Vue instance
 app.use(router).use(store).use(i18n).mount('#app')
-

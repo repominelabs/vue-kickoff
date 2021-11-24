@@ -1,12 +1,20 @@
 // src/components/HelloWorld.spec.ts
 import { mount } from '@vue/test-utils'
+import { createI18n } from 'vue-i18n'
 import theHeader from '../../../../src/components/common/theHeader.vue'
 
-describe('theHeader', () => {
+describe('theHeader.vue', () => {
     it('should display header text', () => {
-        // const msg = 'Hello Vue 3'
-        const wrapper = mount(theHeader)
+        const i18n = createI18n({
+            // vue-i18n options here ...
+        })
 
-        expect(wrapper.find('h1').text()).toEqual('Hello')
+        const wrapper = mount(theHeader, {
+            global: {
+                plugins: [i18n]
+            }
+        })
+
+        expect(wrapper.vm.t).toBeTruthy()
     })
 })

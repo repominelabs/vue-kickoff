@@ -14,6 +14,12 @@ const users = ref<IUser[]>(
         { username: 'stella', name: 'Stella', surname: 'Singh', email: 'stella.singh@outlook.com', phone: '+90 578 467 67 89', gender: 'female', dateOfBirth: new Date(), address: 'Istanbul, Turkey', roles: [{ roleId: 0, roleName: 'Customer', color: 'info' }] },
     ]
 )
+
+await store.dispatch('user/search', {}).then(resp => {
+    users.value = resp.Data
+}).catch(err => {
+    // $toast.fire({ icon: 'error', title: 'Create user failed' })
+})
 </script>
 
 <template>

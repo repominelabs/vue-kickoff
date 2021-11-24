@@ -18,8 +18,8 @@ const editedUser = Object.assign({}, props.user)
 const flag = ref(true)
 
 // Methods
-async function update() {
-    await store.dispatch('user/update', editedUser).then(resp => {
+async function updateUserAsync() {
+    await store.dispatch('user/updateUserAsync', editedUser).then(resp => {
         flag.value = !flag.value
         $toast.fire({ icon: 'success', title: 'User updated' })
     }).catch(err => {
@@ -113,7 +113,7 @@ async function deleteUserRole(roleId: number | undefined, roleIndex: number) {
         <div v-else>
             <!-- User Editable Card Body - start -->
             <div class="card-body">
-                <form @submit.prevent="update">
+                <form @submit.prevent="updateUserAsync">
                     <h5 class="card-title mb-4">
                         <button @click="flag = !flag" class="btn btn-light rounded me-3">
                             <i class="bi bi-x-lg text-warning"></i>
