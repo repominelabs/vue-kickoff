@@ -20,8 +20,8 @@ const user = ref<IUser>({
 })
 
 // Methods
-async function create() {
-    await store.dispatch('user/save', user.value).then(resp => {
+async function saveUserAsync() {
+    await store.dispatch('user/saveUserAsync', user.value).then(resp => {
         $toast.fire({ icon: 'success', title: 'User created' })
     }).catch(err => {
         $toast.fire({ icon: 'error', title: 'Create user failed' })
@@ -37,7 +37,7 @@ async function create() {
                 Add user
             </h5>
             <h6 class="card-subtitle mb-2 text-muted">Creating a single user</h6>
-            <form class="my-4" @submit.prevent="create">
+            <form class="my-4" @submit.prevent="saveUserAsync">
                 <input v-model="user.username" type="text" class="form-control mb-4" placeholder="Username" required />
                 <input v-model="user.password" type="password" class="form-control mb-4" placeholder="Password" required />
                 <input type="text" class="form-control mb-4" placeholder="Name" required />

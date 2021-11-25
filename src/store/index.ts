@@ -4,7 +4,6 @@ import { auth } from './modules/auth.store'
 import { group } from './modules/group.store'
 import { user } from './modules/user.store'
 import { role } from './modules/role.store'
-import { privilege } from './modules/privilege.store'
 
 const store: StoreOptions<IRootState> = {
     state: {
@@ -15,7 +14,6 @@ const store: StoreOptions<IRootState> = {
         group,
         user,
         role,
-        privilege
     }
 }
 

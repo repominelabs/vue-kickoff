@@ -5,12 +5,12 @@ import { useI18n } from 'vue-i18n'
 // Data variables
 const { t } = useI18n()
 const locales = ref([
-    { name: 'Turkey', icon: '🇹🇷', lang: 'tr' },
-    { name: 'English', icon: '🇬🇧', lang: 'en' },
-    { name: 'Germany', icon: '🇩🇪', lang: 'de' },
-    { name: 'Franch', icon: '🇫🇷', lang: 'fr' },
-    { name: 'China', icon: '🇨🇳', lang: 'de' },
-    { name: 'Spain', icon: '🇪🇸', lang: 'fr' },
+    { name: 'Turkey', lang: 'tr' },
+    { name: 'English', lang: 'en' },
+    { name: 'Germany', lang: 'de' },
+    { name: 'Franch', lang: 'fr' },
+    { name: 'China', lang: 'de' },
+    { name: 'Spain', lang: 'fr' },
 ])
 const features = ref([
     { name: 'Mailbox', icon: 'bi bi-mailbox', to: 'mailbox' },
@@ -99,7 +99,6 @@ function logout() {
                             <div v-for="(item, i) in locales" :key="i">
                                 <li>
                                     <a class="dropdown-item" @click="$i18n.locale = item.lang">
-                                        <span class="me-2">{{ item.icon }}</span>
                                         <span>{{ item.name }}</span>
                                     </a>
                                 </li>

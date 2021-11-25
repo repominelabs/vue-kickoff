@@ -8,9 +8,9 @@ import RoleCard from './RoleCard.vue'
 const store = useStore()
 const roles = ref<IRole[]>(
     [
-        { roleName: 'Admin', color: 'danger', privileges: [{ privilegeName: 'Paymant Team' }, { privilegeName: 'Order Team' }] },
-        { roleName: 'Customer', color: 'warning', privileges: [{ privilegeName: 'Order Team' }] },
-        { roleName: 'Vendor', color: 'info', privileges: [{ privilegeName: 'Paymant Team' }, { privilegeName: 'Order Team' }, { privilegeName: 'Product Team' }] },
+        { roleName: 'Admin', color: 'danger' },
+        { roleName: 'Customer', color: 'warning', },
+        { roleName: 'Vendor', color: 'info', },
     ]
 )
 </script>

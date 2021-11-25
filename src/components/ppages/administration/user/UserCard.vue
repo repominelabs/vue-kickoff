@@ -18,8 +18,8 @@ const editedUser = Object.assign({}, props.user)
 const flag = ref(true)
 
 // Methods
-async function update() {
-    await store.dispatch('user/update', editedUser).then(resp => {
+async function updateUserAsync() {
+    await store.dispatch('user/updateUserAsync', editedUser).then(resp => {
         flag.value = !flag.value
         $toast.fire({ icon: 'success', title: 'User updated' })
     }).catch(err => {
@@ -27,10 +27,10 @@ async function update() {
     })
 }
 
-async function deleteUser(userId: number | undefined) {
+async function deleteUserAsync(user: IUser) {
     await $swal.fire({ text: 'You will not be able to revert this!', icon: 'warning', showCancelButton: true, confirmButtonColor: '#0dcaf0' }).then((result: any) => {
         if (result?.isConfirmed) {
-            store.dispatch('user/delete', { userId, index: props.index }).then(resp => {
+            store.dispatch('user/deleteUserAsync', { user, index: props.index }).then(resp => {
                 $toast.fire({ icon: 'success', title: 'User deleted' })
             }).catch(err => {
                 $toast.fire({ icon: 'error', title: 'Add user failed' })
@@ -39,18 +39,18 @@ async function deleteUser(userId: number | undefined) {
     })
 }
 
-async function addUserRole(role: IRole | undefined, roleIndex: number) {
+async function addToRoleAsync(role: IRole | undefined, roleIndex: number) {
     const userRoleReq: IUserRoleReq = { userId: props.user?.userId, roleId: role?.roleId }
-    await store.dispatch('user/addUserRole', { role, userRoleReq, userIndex: props.index, roleIndex }).then(resp => {
+    await store.dispatch('user/addToRoleAsync', { role, userRoleReq, userIndex: props.index, roleIndex }).then(resp => {
         $toast.fire({ icon: 'success', title: 'Role added' })
     }).catch(err => {
         $toast.fire({ icon: 'error', title: 'Add role failed' })
     })
 }
 
-async function deleteUserRole(roleId: number | undefined, roleIndex: number) {
+async function removeFromRoleAsync(roleId: number | undefined, roleIndex: number) {
     const userRoleReq: IUserRoleReq = { userId: props.user?.userId, roleId }
-    await store.dispatch('user/deleteUserRole', { userRoleReq, userIndex: props.index, roleIndex }).then(resp => {
+    await store.dispatch('user/removeFromRoleAsync', { userRoleReq, userIndex: props.index, roleIndex }).then(resp => {
         $toast.fire({ icon: 'success', title: 'Role removed' })
     }).catch(err => {
         $toast.fire({ icon: 'error', title: 'Remove role failed' })
@@ -70,7 +70,7 @@ async function deleteUserRole(roleId: number | undefined, roleIndex: number) {
                     <a @click="flag = !flag" class="btn btn-outline-light border rounded me-2">
                         <i class="bi bi-pen text-black"></i>
                     </a>
-                    <a @click="deleteUser(user?.userId)" class="btn btn-outline-light border rounded">
+                    <a @click="deleteUserAsync(user)" class="btn btn-outline-light border rounded">
                         <i class="bi bi-trash text-black"></i>
                     </a>
                 </h5>
@@ -113,7 +113,7 @@ async function deleteUserRole(roleId: number | undefined, roleIndex: number) {
         <div v-else>
             <!-- User Editable Card Body - start -->
             <div class="card-body">
-                <form @submit.prevent="update">
+                <form @submit.prevent="updateUserAsync">
                     <h5 class="card-title mb-4">
                         <button @click="flag = !flag" class="btn btn-light rounded me-3">
                             <i class="bi bi-x-lg text-warning"></i>
@@ -143,7 +143,7 @@ async function deleteUserRole(roleId: number | undefined, roleIndex: number) {
                     <br />
                     <span v-for="(role, i) in editedUser?.roles" :key="i" :class="`position-relative badge me-3 bg-${role?.color}`">
                         {{ role?.roleName }}
-                        <button @click="deleteUserRole(role?.roleId, i)" class="btn btn-light border position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                        <button @click="removeFromRoleAsync(role?.roleId, i)" class="btn btn-light border position-absolute top-0 start-100 translate-middle badge rounded-pill">
                             <i class="bi bi-x-lg text-warning"></i>
                             <span class="visually-hidden">delete</span>
                         </button>
@@ -154,7 +154,7 @@ async function deleteUserRole(roleId: number | undefined, roleIndex: number) {
                     <br />
                     <span v-for="(role, i) in editedUser?.roles" :key="i" :class="`position-relative badge me-3 bg-${role?.color}`">
                         {{ role?.roleName }}
-                        <button @click="addUserRole(role, i)" class="btn btn-light border position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                        <button @click="addToRoleAsync(role, i)" class="btn btn-light border position-absolute top-0 start-100 translate-middle badge rounded-pill">
                             <i class="bi bi-plus-lg text-info"></i>
                             <span class="visually-hidden">add</span>
                         </button>

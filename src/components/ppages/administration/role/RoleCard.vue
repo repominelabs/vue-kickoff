@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex'
-import { IRole, IRolePrivilegeReq, IPrivilege } from '../../../../types'
+import { IRole } from '../../../../types'
 
 // Props
 const props = defineProps<{
@@ -38,24 +38,6 @@ async function deleteRole(roleId: number | undefined) {
         }
     })
 }
-
-async function addRolePrivilege(privilege: IPrivilege | undefined, privilegeIndex: number) {
-    const rolePrivilegeReq: IRolePrivilegeReq = { roleId: props.role?.roleId, privilegeId: privilege?.privilegeId }
-    await store.dispatch('role/addRolePrivilege', { privilege, rolePrivilegeReq, roleIndex: props.index, privilegeIndex }).then(resp => {
-        $toast.fire({ icon: 'success', title: 'Privilege added' })
-    }).catch(err => {
-        $toast.fire({ icon: 'error', title: 'Add privilege failed' })
-    })
-}
-
-async function deleteRolePrivilege(privilegeId: number | undefined, privilegeIndex: number) {
-    const rolePrivilegeReq: IRolePrivilegeReq = { roleId: props.role?.roleId, privilegeId }
-    await store.dispatch('role/deleteRolePrivilege', { rolePrivilegeReq, roleIndex: props.index, privilegeIndex }).then(resp => {
-        $toast.fire({ icon: 'success', title: 'Privilege removed' })
-    }).catch(err => {
-        $toast.fire({ icon: 'error', title: 'Remove privilege failed' })
-    })
-}
 </script>
 
 <template>
@@ -72,11 +54,6 @@ async function deleteRolePrivilege(privilegeId: number | undefined, privilegeInd
                         <i class="bi bi-trash text-black"></i>
                     </a>
                 </h5>
-                <p class="card-text pb-2">
-                    <label class="mb-2 border-bottom">Privileges</label>
-                    <br />
-                    <span v-for="(privilege, i) in role?.privileges" :key="i" class="badge bg-warning me-2">{{ privilege?.privilegeName }}</span>
-                </p>
             </div>
             <!-- Role Readonly Card Body - end -->
         </div>
@@ -93,41 +70,7 @@ async function deleteRolePrivilege(privilegeId: number | undefined, privilegeInd
                         </button>
                     </h5>
                     <input v-model="editedRole.roleName" type="text" class="form-control mb-4" placeholder="Role name" required />
-                    <div class="form-check form-check-inline">
-                        <input v-model="editedRole.color" class="form-check-input" type="radio" value="danger" />
-                        <label class="form-check-label">Danger</label>
-                    </div>
-                    <div class="form-check form-check-inline mb-4">
-                        <input v-model="editedRole.color" class="form-check-input" type="radio" value="warning" />
-                        <label class="form-check-label">Warning</label>
-                    </div>
-                    <div class="form-check form-check-inline mb-4">
-                        <input v-model="editedRole.color" class="form-check-input" type="radio" value="info" />
-                        <label class="form-check-label">Info</label>
-                    </div>
                 </form>
-                <p class="card-text mb-3">
-                    <label class="mb-3 border-bottom">Owned Privileges</label>
-                    <br />
-                    <span v-for="(privilege, i) in editedRole?.privileges" :key="i" class="position-relative badge me-3 bg-info">
-                        {{ privilege?.privilegeName }}
-                        <button @click="deleteRolePrivilege(privilege?.privilegeId, i)" class="btn btn-light border position-absolute top-0 start-100 translate-middle badge rounded-pill">
-                            <i class="bi bi-x-lg text-warning"></i>
-                            <span class="visually-hidden">delete</span>
-                        </button>
-                    </span>
-                </p>
-                <p class="card-text">
-                    <label class="mb-3 border-bottom">All Privileges</label>
-                    <br />
-                    <span v-for="(privilege, i) in editedRole?.privileges" :key="i" class="position-relative badge me-3 bg-warning">
-                        {{ privilege?.privilegeName }}
-                        <button @click="addRolePrivilege(privilege, i)" class="btn btn-light border position-absolute top-0 start-100 translate-middle badge rounded-pill">
-                            <i class="bi bi-plus-lg text-info"></i>
-                            <span class="visually-hidden">add</span>
-                        </button>
-                    </span>
-                </p>
             </div>
             <!-- Role Editable Card Body - end -->
         </div>

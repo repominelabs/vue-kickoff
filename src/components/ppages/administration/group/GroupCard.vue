@@ -82,7 +82,7 @@ async function deleteGroupUser(userId: number | undefined, userIndex: number) {
                 </h5>
                 <p class="card-text mb-2">{{ group?.groupDescription }}</p>
                 <p class="card-text pb-2">
-                    <label class="mb-2 border-bottom">users</label>
+                    <label class="mb-2 border-bottom">members</label>
                     <br />
                     <span v-for="(user, i) in group?.users" :key="i" class="badge bg-warning me-2">{{ user?.username }}</span>
                 </p>
@@ -105,7 +105,7 @@ async function deleteGroupUser(userId: number | undefined, userIndex: number) {
                     <input v-model="editedGroup.groupDescription" type="text" class="form-control mb-4" placeholder="Group Description" required />
                 </form>
                 <p class="card-text mb-3">
-                    <label class="mb-3 border-bottom">Owned users</label>
+                    <label class="mb-3 border-bottom">Owned members</label>
                     <br />
                     <span v-for="(user, i) in editedGroup?.users" :key="i" class="position-relative badge me-3 bg-info">
                         {{ user?.username }}
@@ -116,7 +116,7 @@ async function deleteGroupUser(userId: number | undefined, userIndex: number) {
                     </span>
                 </p>
                 <p class="card-text">
-                    <label class="mb-3 border-bottom">All users</label>
+                    <label class="mb-3 border-bottom">All members</label>
                     <br />
                     <span v-for="(user, i) in editedGroup?.users" :key="i" class="position-relative badge me-3 bg-warning">
                         {{ user?.username }}

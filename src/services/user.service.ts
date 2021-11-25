@@ -17,19 +17,19 @@ class UserService extends Api {
         return this._instance
     }
 
-    public search = async (payload: IUserSearchReq) => await this.instance.post<IUserSearchResp, AxiosResponse<IApiResponse<IUserSearchResp>>, IUserSearchReq>('user/search', payload)
+    public searchUsersAsync = async (payload: IUserSearchReq) => await this.instance.post<IUserSearchResp, AxiosResponse<IApiResponse<IUserSearchResp>>, IUserSearchReq>('user/search-users', payload)
 
-    public save = async (payload: IUser) => await this.instance.post<IUser, AxiosResponse<IApiResponse<IUser>>, IUser>('user/save', payload)
+    public saveUserAsync = async (payload: IUser) => await this.instance.post<IUser, AxiosResponse<IApiResponse<IUser>>, IUser>('user/save-user', payload)
 
-    public saveMultiple = async (payload: IUser[]) => await this.instance.post<IUser[], AxiosResponse<IApiResponse<IUser[]>>, IUser[]>('user/saveMultiple', payload)
+    public saveMultipleUserAsync = async (payload: IUser[]) => await this.instance.post<IUser[], AxiosResponse<IApiResponse<IUser[]>>, IUser[]>('user/save-multiple-user', payload)
 
-    public update = async (payload: IUser) => await this.instance.put<null, AxiosResponse<IApiResponse<null>>, IUser>('user/update', payload)
+    public updateUserAsync = async (payload: IUser) => await this.instance.post<null, AxiosResponse<IApiResponse<null>>, IUser>('user/update-user', payload)
 
-    public delete = async (id: number) => await this.instance.delete<null, AxiosResponse<IApiResponse<null>>, IUser>(`user/delete?id=${id.toString()}`)
+    public deleteUserAsync = async (payload: IUser) => await this.instance.post<null, AxiosResponse<IApiResponse<null>>, IUser>('user/delete-user', payload)
 
-    public addUserRole = async (payload: IUserRoleReq) => await this.instance.post<null, AxiosResponse<IApiResponse<null>>, IUserRoleReq>('user/addUserRole', payload)
+    public addToRoleAsync = async (payload: IUserRoleReq) => await this.instance.post<null, AxiosResponse<IApiResponse<null>>, IUserRoleReq>('user/add-to-role', payload)
 
-    public deleteUserRole = async (payload: IUserRoleReq) => await this.instance.post<null, AxiosResponse<IApiResponse<null>>, IUserRoleReq>('user/deleteUserRole', payload)
+    public removeFromRoleAsync = async (payload: IUserRoleReq) => await this.instance.post<null, AxiosResponse<IApiResponse<null>>, IUserRoleReq>('user/remove-from-role', payload)
 }
 
 export default UserService.getInstance()

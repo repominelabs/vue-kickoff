@@ -1,10 +1,13 @@
 <script setup lang='ts'>
 import { ref, getCurrentInstance } from 'vue'
+import { useStore } from 'vuex'
 
 // Data variables
 const app = getCurrentInstance()
+const $toast = app?.appContext.config.globalProperties.$toast
 const $swal = app?.appContext.config.globalProperties.$swal
 const $xlsx = app?.appContext.config.globalProperties.$xlsx
+const store = useStore()
 const users = ref()
 const headers = ['First Name', 'Last Name', 'Gender', 'Country', 'Age', 'Date', 'Id']
 
@@ -31,6 +34,14 @@ function upload(e: Event) {
     }
     fileReader.readAsBinaryString(files[0]);
 }
+
+async function saveMultipleUserAsync() {
+    await store.dispatch('user/saveMultipleUserAsync', users.value).then(resp => {
+        $toast.fire({ icon: 'success', title: 'User created' })
+    }).catch(err => {
+        $toast.fire({ icon: 'error', title: 'Create user failed' })
+    })
+}
 </script>
 
 <template>
@@ -43,7 +54,7 @@ function upload(e: Event) {
             <h6 class="card-subtitle mb-2 text-muted">Creating multiple users via files</h6>
             <div class="input-group my-4 w-50">
                 <input @change="upload" type="file" class="form-control" />
-                <button class="btn btn-light border" type="button">
+                <button @click="saveMultipleUserAsync" class="btn btn-light border" type="button">
                     <i class="bi bi-upload text-black"></i>
                 </button>
             </div>

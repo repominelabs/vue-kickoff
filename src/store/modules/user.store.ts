@@ -21,69 +21,69 @@ const getters: GetterTree<IUserState, IRootState> = {
 
 const actions: ActionTree<IUserState, IRootState> = {
     async search({ commit }, payload: IUserSearchReq): Promise<any> {
-        return await UserService.search(payload).then(response => {
+        return await UserService.searchUsersAsync(payload).then(response => {
             const data: IUserSearchResp = response && response.data && response.data.response
-            commit('search', data)
+            commit('searchUsersAsync', data)
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async save({ commit }, payload: IUser): Promise<any> {
-        return await UserService.save(payload).then(response => {
+    async saveUserAsync({ commit }, payload: IUser): Promise<any> {
+        return await UserService.saveUserAsync(payload).then(response => {
             const data: IUser = response && response.data && response.data.response
-            commit('save', data)
+            commit('saveUserAsync', data)
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async saveMultiple({ commit }, payload: IUser[]): Promise<any> {
-        return await UserService.saveMultiple(payload).then(response => {
+    async saveMultipleUserAsync({ commit }, payload: IUser[]): Promise<any> {
+        return await UserService.saveMultipleUserAsync(payload).then(response => {
             const data: IUser[] = response && response.data && response.data.response
-            commit('saveMultiple', data)
+            commit('saveMultipleUserAsync', data)
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async update({ commit }, payload: { user: IUser, index: number }): Promise<any> {
-        return await UserService.update(payload.user).then(response => {
+    async updateUserAsync({ commit }, payload: { user: IUser, index: number }): Promise<any> {
+        return await UserService.updateUserAsync(payload.user).then(response => {
             const data: any = response && response.data && response.data.response
-            commit('update', payload)
+            commit('updateUserAsync', payload)
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async delete({ commit }, payload: { userId: number, index: number }): Promise<any> {
-        return await UserService.delete(payload.userId).then(response => {
+    async deleteUserAsync({ commit }, payload: { user: IUser, index: number }): Promise<any> {
+        return await UserService.deleteUserAsync(payload.user).then(response => {
             const data: any = response && response.data && response.data
-            commit('delete', payload)
+            commit('deleteUserAsync', payload)
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async addUserRole({ commit }, payload: { role: IRole, userRoleReq: IUserRoleReq, userIndex: number, roleIndex: number }): Promise<any> {
-        return await UserService.addUserRole(payload.userRoleReq).then(response => {
+    async addToRoleAsync({ commit }, payload: { role: IRole, userRoleReq: IUserRoleReq, userIndex: number, roleIndex: number }): Promise<any> {
+        return await UserService.addToRoleAsync(payload.userRoleReq).then(response => {
             const data: any = response && response.data && response.data
-            commit('addUserRole')
+            commit('addToRoleAsync')
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async deleteUserRole({ commit }, payload: { userRoleReq: IUserRoleReq, userIndex: number, roleIndex: number }): Promise<any> {
-        return await UserService.deleteUserRole(payload.userRoleReq).then(response => {
+    async removeFromRoleAsync({ commit }, payload: { userRoleReq: IUserRoleReq, userIndex: number, roleIndex: number }): Promise<any> {
+        return await UserService.removeFromRoleAsync(payload.userRoleReq).then(response => {
             const data: any = response && response.data && response.data
-            commit('deleteUserRole', payload)
+            commit('removeFromRoleAsync', payload)
 
             return Promise.resolve(data)
         }).catch(error => {
@@ -93,34 +93,34 @@ const actions: ActionTree<IUserState, IRootState> = {
 }
 
 const mutations: MutationTree<IUserState> = {
-    search(state, data: IUserSearchResp) {
+    searchUsersAsync(state, data: IUserSearchResp) {
         state.users = data.users
         state.length = data.length
     },
-    save(state, data: IUser) {
+    saveUserAsync(state, data: IUser) {
         state.users?.push(data)
     },
-    saveMultiple(state, data: IUser[]) {
+    saveMultipleUserAsync(state, data: IUser[]) {
         for (let i = 0; i < data.length; i++) {
             state.users?.push(data[i])
         }
     },
-    update(state, data: { user: IUser, index: number }) {
+    updateUserAsync(state, data: { user: IUser, index: number }) {
         if (state.users != undefined) {
             state.users[data.index] = Object.assign({}, data.user)
         }
     },
-    delete(state, data: { userId: number, index: number }) {
+    deleteUserAsync(state, data: { user: IUser, index: number }) {
         if (state.users != undefined) {
             state.users.splice(1, data.index)
         }
     },
-    addUserRole(state, data: { role: IRole, userRoleReq: IUserRoleReq, userIndex: number, roleIndex: number }) {
+    addToRoleAsync(state, data: { role: IRole, userRoleReq: IUserRoleReq, userIndex: number, roleIndex: number }) {
         if (state.users != undefined) {
             state.users[data.userIndex].roles?.push(data.role)
         }
     },
-    deleteUserRole(state, data: { userIndex: number, roleIndex: number }) {
+    removeFromRoleAsync(state, data: { userIndex: number, roleIndex: number }) {
         if (state.users != undefined) {
             state.users[data.userIndex].roles?.splice(1, data.roleIndex)
         }
