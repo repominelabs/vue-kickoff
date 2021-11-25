@@ -1,10 +1,7 @@
-import { IPrivilege } from './privilege.types'
-
 export interface IRole {
     roleId?: number,
     roleName: string,
     color?: string,
-    privileges?: IPrivilege[],
 }
 
 export interface IRoleState {
@@ -22,9 +19,4 @@ export interface IRoleSearchReq {
 export interface IRoleSearchResp {
     length: number,
     roles: IRole[]
-}
-
-export interface IRolePrivilegeReq {
-    roleId?: number,
-    privilegeId?: number
 }

@@ -1,7 +1,7 @@
 import Api from '../utils/helpers/api'
 import config from '../config'
 import { AxiosResponse } from 'axios'
-import { IApiResponse, IRole, IRoleSearchReq, IRoleSearchResp, IRolePrivilegeReq } from '../types'
+import { IApiResponse, IRole, IRoleSearchReq, IRoleSearchResp } from '../types'
 
 class RoleService extends Api {
     private static _instance?: RoleService
@@ -24,10 +24,6 @@ class RoleService extends Api {
     public update = async (payload: IRole) => await this.instance.put<null, AxiosResponse<IApiResponse<null>>, IRole>('role/update', payload)
 
     public delete = async (id: number) => await this.instance.delete<null, AxiosResponse<IApiResponse<null>>, IRole>(`role/delete?id=${id.toString()}`)
-
-    public addRolePrivilege = async (payload: IRolePrivilegeReq) => await this.instance.post<null, AxiosResponse<IApiResponse<null>>, IRolePrivilegeReq>('role/addRolePrivilege', payload)
-
-    public deleteRolePrivilege = async (payload: IRolePrivilegeReq) => await this.instance.post<null, AxiosResponse<IApiResponse<null>>, IRolePrivilegeReq>('role/deleteRolePrivilege', payload)
 }
 
 export default RoleService.getInstance()

@@ -1,5 +1,5 @@
 import { GetterTree, ActionTree, MutationTree, Module } from 'vuex'
-import { IRootState, IRole, IRoleState, IRoleSearchReq, IRoleSearchResp, IRolePrivilegeReq, IPrivilege } from '../../types'
+import { IRootState, IRole, IRoleState, IRoleSearchReq, IRoleSearchResp } from '../../types'
 import RoleService from '../../services/role.service'
 
 const state: IRoleState = {
@@ -59,26 +59,6 @@ const actions: ActionTree<IRoleState, IRootState> = {
         }).catch(error => {
             return Promise.reject(error)
         })
-    },
-    async addRolePrivilege({ commit }, payload: { role: IRole, rolePrivilegeReq: IRolePrivilegeReq, roleIndex: number, privilegeIndex: number }): Promise<any> {
-        return await RoleService.addRolePrivilege(payload.rolePrivilegeReq).then(response => {
-            const data: any = response && response.data && response.data
-            commit('addRolePrivilege')
-
-            return Promise.resolve(data)
-        }).catch(error => {
-            return Promise.reject(error)
-        })
-    },
-    async deleteRolePrivilege({ commit }, payload: { rolePrivilegeReq: IRolePrivilegeReq, roleIndex: number, privilegeIndex: number }): Promise<any> {
-        return await RoleService.deleteRolePrivilege(payload.rolePrivilegeReq).then(response => {
-            const data: any = response && response.data && response.data
-            commit('deleteRolePrivilege', payload)
-
-            return Promise.resolve(data)
-        }).catch(error => {
-            return Promise.reject(error)
-        })
     }
 }
 
@@ -98,16 +78,6 @@ const mutations: MutationTree<IRoleState> = {
     delete(state, data: { roleId: number, index: number }) {
         if (state.roles != undefined) {
             state.roles.splice(1, data.index)
-        }
-    },
-    addRolePrivilege(state, data: { privilege: IPrivilege, rolePrivilegeReq: IRolePrivilegeReq, roleIndex: number, privilegeIndex: number }) {
-        if (state.roles != undefined) {
-            state.roles[data.roleIndex].privileges?.push(data.privilege)
-        }
-    },
-    deleteRolePrivilege(state, data: { roleIndex: number, privilegeIndex: number }) {
-        if (state.roles != undefined) {
-            state.roles[data.roleIndex].privileges?.splice(1, data.privilegeIndex)
         }
     }
 }
