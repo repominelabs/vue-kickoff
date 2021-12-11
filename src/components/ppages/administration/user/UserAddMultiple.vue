@@ -36,7 +36,7 @@ function upload(e: Event) {
 }
 
 async function saveMultipleUserAsync() {
-    await store.dispatch('user/saveMultipleUserAsync', users.value).then(resp => {
+    await store.dispatch('identity/user/saveMultipleUserAsync', users.value).then(resp => {
         $toast.fire({ icon: 'success', title: 'User created' })
     }).catch(err => {
         $toast.fire({ icon: 'error', title: 'Create user failed' })

@@ -1,5 +1,5 @@
 import { GetterTree, ActionTree, MutationTree, Module } from 'vuex'
-import { IRootState, IUser, IUserState, IUserSearchReq, IUserSearchResp, IUserRoleReq, IRole } from '../../../types'
+import { IRootState, IUser, IUserState, ISearchUsersRequest, ISearchUsersResponse, IAddToRoleRequest, IRemoveFromRoleRequest, IRole } from '../../../types'
 import UserService from '../../../services/identity/user.service'
 
 const state: IUserState = {
@@ -20,9 +20,9 @@ const getters: GetterTree<IUserState, IRootState> = {
 }
 
 const actions: ActionTree<IUserState, IRootState> = {
-    async search({ commit }, payload: IUserSearchReq): Promise<any> {
+    async searchUsersAsync({ commit }, payload: ISearchUsersRequest): Promise<any> {
         return await UserService.searchUsersAsync(payload).then(response => {
-            const data: IUserSearchResp = response && response.data && response.data.response
+            const data: ISearchUsersResponse = response && response.data && response.data.response
             commit('searchUsersAsync', data)
 
             return Promise.resolve(data)
@@ -63,14 +63,14 @@ const actions: ActionTree<IUserState, IRootState> = {
     async deleteUserAsync({ commit }, payload: { user: IUser, index: number }): Promise<any> {
         return await UserService.deleteUserAsync(payload.user).then(response => {
             const data: any = response && response.data && response.data
-            commit('deleteUserAsync', payload)
+            commit('deleteUserAsync', payload.index)
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async addToRoleAsync({ commit }, payload: { role: IRole, userRoleReq: IUserRoleReq, userIndex: number, roleIndex: number }): Promise<any> {
+    async addToRoleAsync({ commit }, payload: { role: IRole, userRoleReq: IAddToRoleRequest, userIndex: number, roleIndex: number }): Promise<any> {
         return await UserService.addToRoleAsync(payload.userRoleReq).then(response => {
             const data: any = response && response.data && response.data
             commit('addToRoleAsync')
@@ -80,7 +80,7 @@ const actions: ActionTree<IUserState, IRootState> = {
             return Promise.reject(error)
         })
     },
-    async removeFromRoleAsync({ commit }, payload: { userRoleReq: IUserRoleReq, userIndex: number, roleIndex: number }): Promise<any> {
+    async removeFromRoleAsync({ commit }, payload: { userRoleReq: IRemoveFromRoleRequest, userIndex: number, roleIndex: number }): Promise<any> {
         return await UserService.removeFromRoleAsync(payload.userRoleReq).then(response => {
             const data: any = response && response.data && response.data
             commit('removeFromRoleAsync', payload)
@@ -93,7 +93,7 @@ const actions: ActionTree<IUserState, IRootState> = {
 }
 
 const mutations: MutationTree<IUserState> = {
-    searchUsersAsync(state, data: IUserSearchResp) {
+    searchUsersAsync(state, data: ISearchUsersResponse) {
         state.users = data.users
         state.length = data.length
     },
@@ -110,12 +110,12 @@ const mutations: MutationTree<IUserState> = {
             state.users[data.index] = Object.assign({}, data.user)
         }
     },
-    deleteUserAsync(state, data: { user: IUser, index: number }) {
+    deleteUserAsync(state, index: number) {
         if (state.users != undefined) {
-            state.users.splice(1, data.index)
+            state.users.splice(1, index)
         }
     },
-    addToRoleAsync(state, data: { role: IRole, userRoleReq: IUserRoleReq, userIndex: number, roleIndex: number }) {
+    addToRoleAsync(state, data: { role: IRole, userRoleReq: IAddToRoleRequest, userIndex: number, roleIndex: number }) {
         if (state.users != undefined) {
             state.users[data.userIndex].roles?.push(data.role)
         }

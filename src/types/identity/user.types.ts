@@ -23,18 +23,23 @@ export interface IUserState {
     length: number
 }
 
-export interface IUserSearchReq {
+export interface ISearchUsersRequest {
     limit: number,
     page: number,
     key: string
 }
 
-export interface IUserSearchResp {
+export interface ISearchUsersResponse {
     length: number,
     users: IUser[]
 }
 
-export interface IUserRoleReq {
+export interface IAddToRoleRequest {
+    userId?: number,
+    roleId?: number,
+}
+
+export interface IRemoveFromRoleRequest {
     userId?: number,
     roleId?: number,
 }

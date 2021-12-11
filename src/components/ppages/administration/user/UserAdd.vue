@@ -21,7 +21,7 @@ const user = ref<IUser>({
 
 // Methods
 async function saveUserAsync() {
-    await store.dispatch('user/saveUserAsync', user.value).then(resp => {
+    await store.dispatch('identity/user/saveUserAsync', user.value).then(resp => {
         $toast.fire({ icon: 'success', title: 'User created' })
     }).catch(err => {
         $toast.fire({ icon: 'error', title: 'Create user failed' })

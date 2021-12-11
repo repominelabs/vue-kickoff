@@ -13,8 +13,8 @@ const role = ref<IRole>({
 })
 
 // Methods
-async function create() {
-    await store.dispatch('role/save', role.value).then(resp => {
+async function saveRoleAsync() {
+    await store.dispatch('identity/role/saveRoleAsync', role.value).then(resp => {
         $toast.fire({ icon: 'success', title: 'role created' })
     }).catch(err => {
         $toast.fire({ icon: 'error', title: 'Create role failed' })
@@ -30,7 +30,7 @@ async function create() {
                 Add role
             </h5>
             <h6 class="card-subtitle mb-2 text-muted">Creating a single role</h6>
-            <form class="my-4" @submit.prevent="create">
+            <form class="my-4" @submit.prevent="saveRoleAsync">
                 <input v-model="role.roleName" type="text" class="form-control mb-4" placeholder="Role name" required />
                 <button type="submit" class="btn btn-outline-warning w-100">Create</button>
             </form>

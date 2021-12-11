@@ -17,11 +17,11 @@ class AuthService extends Api {
         return this._instance
     }
 
-    public login = async (payload: ILogin) => await this.instance.post<ILogin, AxiosResponse<IApiResponse<IAuth>>, ILogin>('/identity/auth/login', payload)
+    public login = async (payload: ILogin) => await this.instance.post<ILogin, AxiosResponse<IApiResponse<IAuth>>, ILogin>('identity/auth/login', payload)
 
-    public register = async (payload: IRegister) => await this.instance.post<IRegister, AxiosResponse<IApiResponse<IUser>>, IRegister>('/identity/auth/register', payload)
+    public register = async (payload: IRegister) => await this.instance.post<IRegister, AxiosResponse<IApiResponse<IUser>>, IRegister>('identity/auth/register', payload)
 
-    public refreshToken = async (payload: IRefreshToken) => await this.instance.post<IRefreshToken, AxiosResponse<IApiResponse<IRefreshToken>>, IRefreshToken>('/identity/auth/refresh-token', payload)
+    public refreshToken = async (payload: IRefreshToken) => await this.instance.post<IRefreshToken, AxiosResponse<IApiResponse<IRefreshToken>>, IRefreshToken>('identity/auth/refresh-token', payload)
 
     public logout = async () => await this.instance.post('/auth/logout')
 }

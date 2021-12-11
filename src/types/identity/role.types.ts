@@ -13,13 +13,13 @@ export interface IRoleState {
     length: number
 }
 
-export interface IRoleSearchReq {
+export interface ISearchRolesRequest {
     limit: number,
     page: number,
     key: string
 }
 
-export interface IRoleSearchResp {
+export interface ISearchRolesResponse {
     length: number,
     roles: IRole[]
 }

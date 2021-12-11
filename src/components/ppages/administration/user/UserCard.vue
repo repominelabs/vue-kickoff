@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex'
-import { IUser, IUserRoleReq, IRole } from '../../../../types'
+import { IUser, IAddToRoleRequest, IRemoveFromRoleRequest, IRole } from '../../../../types'
 
 // Props
 const props = defineProps<{
@@ -19,7 +19,7 @@ const flag = ref(true)
 
 // Methods
 async function updateUserAsync() {
-    await store.dispatch('user/updateUserAsync', editedUser).then(resp => {
+    await store.dispatch('identity/user/updateUserAsync', editedUser).then(resp => {
         flag.value = !flag.value
         $toast.fire({ icon: 'success', title: 'User updated' })
     }).catch(err => {
@@ -30,7 +30,7 @@ async function updateUserAsync() {
 async function deleteUserAsync(user: IUser) {
     await $swal.fire({ text: 'You will not be able to revert this!', icon: 'warning', showCancelButton: true, confirmButtonColor: '#0dcaf0' }).then((result: any) => {
         if (result?.isConfirmed) {
-            store.dispatch('user/deleteUserAsync', { user, index: props.index }).then(resp => {
+            store.dispatch('identity/user/deleteUserAsync', { user, index: props.index }).then(resp => {
                 $toast.fire({ icon: 'success', title: 'User deleted' })
             }).catch(err => {
                 $toast.fire({ icon: 'error', title: 'Add user failed' })
@@ -40,8 +40,8 @@ async function deleteUserAsync(user: IUser) {
 }
 
 async function addToRoleAsync(role: IRole | undefined, roleIndex: number) {
-    const userRoleReq: IUserRoleReq = { userId: props.user?.userId, roleId: role?.roleId }
-    await store.dispatch('user/addToRoleAsync', { role, userRoleReq, userIndex: props.index, roleIndex }).then(resp => {
+    const userRoleReq: IAddToRoleRequest = { userId: props.user?.userId, roleId: role?.roleId }
+    await store.dispatch('identity/user/addToRoleAsync', { role, userRoleReq, userIndex: props.index, roleIndex }).then(resp => {
         $toast.fire({ icon: 'success', title: 'Role added' })
     }).catch(err => {
         $toast.fire({ icon: 'error', title: 'Add role failed' })
@@ -49,8 +49,8 @@ async function addToRoleAsync(role: IRole | undefined, roleIndex: number) {
 }
 
 async function removeFromRoleAsync(roleId: number | undefined, roleIndex: number) {
-    const userRoleReq: IUserRoleReq = { userId: props.user?.userId, roleId }
-    await store.dispatch('user/removeFromRoleAsync', { userRoleReq, userIndex: props.index, roleIndex }).then(resp => {
+    const userRoleReq: IRemoveFromRoleRequest = { userId: props.user?.userId, roleId }
+    await store.dispatch('identity/user/removeFromRoleAsync', { userRoleReq, userIndex: props.index, roleIndex }).then(resp => {
         $toast.fire({ icon: 'success', title: 'Role removed' })
     }).catch(err => {
         $toast.fire({ icon: 'error', title: 'Remove role failed' })

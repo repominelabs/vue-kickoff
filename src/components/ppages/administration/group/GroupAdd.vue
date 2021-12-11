@@ -14,7 +14,7 @@ const group = ref<IGroup>({
 
 // Methods
 async function create() {
-    await store.dispatch('group/save', group.value).then(resp => {
+    await store.dispatch('identity/group/saveGroupAsync', group.value).then(resp => {
         $toast.fire({ icon: 'success', title: 'Group created' })
     }).catch(err => {
         $toast.fire({ icon: 'error', title: 'Create group failed' })

@@ -18,8 +18,8 @@ const editedRole = Object.assign({}, props.role)
 const flag = ref(true)
 
 // Methods
-async function update() {
-    await store.dispatch('role/update', editedRole).then(resp => {
+async function updateRoleAsync() {
+    await store.dispatch('identity/role/updateRoleAsync', editedRole).then(resp => {
         flag.value = !flag.value
         $toast.fire({ icon: 'success', title: 'Role updated' })
     }).catch(err => {
@@ -27,10 +27,10 @@ async function update() {
     })
 }
 
-async function deleteRole(roleId: number | undefined) {
+async function deleteRoleAsync(roleId: number | undefined) {
     await $swal.fire({ text: 'You will not be able to revert this!', icon: 'warning', showCancelButton: true, confirmButtonColor: '#0dcaf0' }).then((result: any) => {
         if (result?.isConfirmed) {
-            store.dispatch('role/delete', { roleId, index: props.index }).then(resp => {
+            store.dispatch('identity/role/deleteRoleAsync', { roleId, index: props.index }).then(resp => {
                 $toast.fire({ icon: 'success', title: 'Role deleted' })
             }).catch(err => {
                 $toast.fire({ icon: 'error', title: 'Delete role failed' })
@@ -50,7 +50,7 @@ async function deleteRole(roleId: number | undefined) {
                     <a @click="flag = !flag" class="btn btn-outline-light border rounded me-2">
                         <i class="bi bi-pen text-black"></i>
                     </a>
-                    <a @click="deleteRole(role?.roleId)" class="btn btn-outline-light border rounded">
+                    <a @click="deleteRoleAsync(role?.roleId)" class="btn btn-outline-light border rounded">
                         <i class="bi bi-trash text-black"></i>
                     </a>
                 </h5>
@@ -60,7 +60,7 @@ async function deleteRole(roleId: number | undefined) {
         <div v-else>
             <!-- Role Editable Card Body - start -->
             <div class="card-body">
-                <form @submit.prevent="update">
+                <form @submit.prevent="updateRoleAsync">
                     <h5 class="card-title mb-4">
                         <button @click="flag = !flag" class="btn btn-light rounded me-3">
                             <i class="bi bi-x-lg text-warning"></i>

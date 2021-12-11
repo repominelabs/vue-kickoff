@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex'
-import { IGroup, IGroupUserReq, IUser } from '../../../../types'
+import { IGroup, IAddToUserRequest, IRemoveFromUserRequest, IUser } from '../../../../types'
 
 // Props
 const props = defineProps<{
@@ -23,8 +23,8 @@ const editedGroup = Object.assign({}, props.group)
 const flag = ref(true)
 
 // Methods
-async function update() {
-    await store.dispatch('group/update', editedGroup).then(resp => {
+async function updateGroupAsync() {
+    await store.dispatch('identity/group/updateGroupAsync', editedGroup).then(resp => {
         flag.value = !flag.value
         $toast.fire({ icon: 'success', title: 'group updated' })
     }).catch(err => {
@@ -32,10 +32,10 @@ async function update() {
     })
 }
 
-async function deleteGroup(groupId: number | undefined) {
+async function deleteGroupAsync(group: IGroup | undefined) {
     await $swal.fire({ text: 'You will not be able to revert this!', icon: 'warning', showCancelButton: true, confirmButtonColor: '#0dcaf0' }).then((result: any) => {
         if (result?.isConfirmed) {
-            store.dispatch('group/delete', { groupId, index: props.index }).then(resp => {
+            store.dispatch('identity/group/deleteGroupAsync', { group, index: props.index }).then(resp => {
                 $toast.fire({ icon: 'success', title: 'group deleted' })
             }).catch(err => {
                 $toast.fire({ icon: 'error', title: 'Delete group failed' })
@@ -44,18 +44,18 @@ async function deleteGroup(groupId: number | undefined) {
     })
 }
 
-async function addGroupUser(user: IUser | undefined, userIndex: number) {
-    const groupUserReq: IGroupUserReq = { groupId: props.group?.groupId, userId: user?.userId }
-    await store.dispatch('group/addGroupUser', { user, groupUserReq, groupIndex: props.index, userIndex }).then(resp => {
+async function addToUserAsync(user: IUser | undefined, userIndex: number) {
+    const groupUserReq: IAddToUserRequest = { groupId: props.group?.groupId, userId: user?.userId }
+    await store.dispatch('identity/group/addToUserAsync', { user, groupUserReq, groupIndex: props.index, userIndex }).then(resp => {
         $toast.fire({ icon: 'success', title: 'user added' })
     }).catch(err => {
         $toast.fire({ icon: 'error', title: 'Add user failed' })
     })
 }
 
-async function deleteGroupUser(userId: number | undefined, userIndex: number) {
-    const groupUserReq: IGroupUserReq = { groupId: props.group?.groupId, userId }
-    await store.dispatch('group/deleteGroupUser', { groupUserReq, groupIndex: props.index, userIndex }).then(resp => {
+async function removeFromUserAsync(userId: number | undefined, userIndex: number) {
+    const groupUserReq: IRemoveFromUserRequest = { groupId: props.group?.groupId, userId }
+    await store.dispatch('identity/group/removeFromUserAsync', { groupUserReq, groupIndex: props.index, userIndex }).then(resp => {
         $toast.fire({ icon: 'success', title: 'user removed' })
     }).catch(err => {
         $toast.fire({ icon: 'error', title: 'Remove user failed' })
@@ -76,7 +76,7 @@ async function deleteGroupUser(userId: number | undefined, userIndex: number) {
                     <a @click="flag = !flag" class="btn btn-outline-light border rounded me-2">
                         <i class="bi bi-pen text-black"></i>
                     </a>
-                    <a @click="deleteGroup(group?.groupId)" class="btn btn-outline-light border rounded">
+                    <a @click="deleteGroupAsync(group)" class="btn btn-outline-light border rounded">
                         <i class="bi bi-trash text-black"></i>
                     </a>
                 </h5>
@@ -92,7 +92,7 @@ async function deleteGroupUser(userId: number | undefined, userIndex: number) {
         <div v-else>
             <!-- Group Editable Card Body - start -->
             <div class="card-body">
-                <form @submit.prevent="update">
+                <form @submit.prevent="updateGroupAsync">
                     <h5 class="card-title mb-4">
                         <button @click="flag = !flag" class="btn btn-light rounded me-3">
                             <i class="bi bi-x-lg text-warning"></i>
@@ -109,7 +109,7 @@ async function deleteGroupUser(userId: number | undefined, userIndex: number) {
                     <br />
                     <span v-for="(user, i) in editedGroup?.users" :key="i" class="position-relative badge me-3 bg-info">
                         {{ user?.username }}
-                        <button @click="deleteGroupUser(user?.userId, i)" class="btn btn-light border position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                        <button @click="removeFromUserAsync(user?.userId, i)" class="btn btn-light border position-absolute top-0 start-100 translate-middle badge rounded-pill">
                             <i class="bi bi-x-lg text-warning"></i>
                             <span class="visually-hidden">delete</span>
                         </button>
@@ -120,7 +120,7 @@ async function deleteGroupUser(userId: number | undefined, userIndex: number) {
                     <br />
                     <span v-for="(user, i) in editedGroup?.users" :key="i" class="position-relative badge me-3 bg-warning">
                         {{ user?.username }}
-                        <button @click="addGroupUser(user, i)" class="btn btn-light border position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                        <button @click="addToUserAsync(user, i)" class="btn btn-light border position-absolute top-0 start-100 translate-middle badge rounded-pill">
                             <i class="bi bi-plus-lg text-info"></i>
                             <span class="visually-hidden">add</span>
                         </button>

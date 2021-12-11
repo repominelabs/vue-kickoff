@@ -1,5 +1,5 @@
 import { GetterTree, ActionTree, MutationTree, Module } from 'vuex'
-import { IRootState, IRole, IRoleState, IRoleSearchReq, IRoleSearchResp } from '../../../types'
+import { IRootState, IRole, IRoleState, ISearchRolesRequest, ISearchRolesResponse } from '../../../types'
 import RoleService from '../../../services/identity/role.service'
 
 const state: IRoleState = {
@@ -20,40 +20,40 @@ const getters: GetterTree<IRoleState, IRootState> = {
 }
 
 const actions: ActionTree<IRoleState, IRootState> = {
-    async search({ commit }, payload: IRoleSearchReq): Promise<any> {
-        return await RoleService.search(payload).then(response => {
-            const data: IRoleSearchResp = response && response.data && response.data.response
-            commit('search', data)
+    async searchRolesAsync({ commit }, payload: ISearchRolesRequest): Promise<any> {
+        return await RoleService.searchRolesAsync(payload).then(response => {
+            const data: ISearchRolesResponse = response && response.data && response.data.response
+            commit('searchRolesAsync', data)
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async save({ commit }, payload: IRole): Promise<any> {
-        return await RoleService.save(payload).then(response => {
+    async saveRoleAsync({ commit }, payload: IRole): Promise<any> {
+        return await RoleService.saveRoleAsync(payload).then(response => {
             const data: IRole = response && response.data && response.data.response
-            commit('save', data)
+            commit('saveRoleAsync', data)
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async update({ commit }, payload: { role: IRole, index: number }): Promise<any> {
-        return await RoleService.update(payload.role).then(response => {
+    async updateRoleAsync({ commit }, payload: { role: IRole, index: number }): Promise<any> {
+        return await RoleService.updateRoleAsync(payload.role).then(response => {
             const data: any = response && response.data && response.data.response
-            commit('update', payload)
+            commit('updateRoleAsync', payload)
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async delete({ commit }, payload: { roleId: number, index: number }): Promise<any> {
-        return await RoleService.delete(payload.roleId).then(response => {
+    async deleteRoleAsync({ commit }, payload: { role: IRole, index: number }): Promise<any> {
+        return await RoleService.deleteRoleAsync(payload.role).then(response => {
             const data: any = response && response.data && response.data
-            commit('delete', payload)
+            commit('deleteRoleAsync', payload.index)
 
             return Promise.resolve(data)
         }).catch(error => {
@@ -63,21 +63,21 @@ const actions: ActionTree<IRoleState, IRootState> = {
 }
 
 const mutations: MutationTree<IRoleState> = {
-    search(state, data: IRoleSearchResp) {
+    searchRolesAsync(state, data: ISearchRolesResponse) {
         state.roles = data.roles
         state.length = data.length
     },
-    save(state, data: IRole) {
+    saveRoleAsync(state, data: IRole) {
         state.roles?.push(data)
     },
-    update(state, data: { role: IRole, index: number }) {
+    updateRoleAsync(state, data: { role: IRole, index: number }) {
         if (state.roles != undefined) {
             state.roles[data.index] = Object.assign({}, data.role)
         }
     },
-    delete(state, data: { roleId: number, index: number }) {
+    deleteRoleAsync(state, index: number ) {
         if (state.roles != undefined) {
-            state.roles.splice(1, data.index)
+            state.roles.splice(1, index)
         }
     }
 }
