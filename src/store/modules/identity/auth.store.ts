@@ -1,8 +1,8 @@
 import { GetterTree, ActionTree, MutationTree, Module } from 'vuex'
-import { IRootState, IAuth, IAuthState, IUser, ILogin, IRegister, IRefreshToken } from '../../types'
-import router from '../../router'
-import StorageService from '../../services/storage.service'
-import AuthService from '../../services/auth.service'
+import { IRootState, IAuth, IAuthState, IUser, ILogin, IRegister, IRefreshToken } from '../../../types'
+import router from '../../../router'
+import StorageService from '../../../services/common/storage.service'
+import AuthService from '../../../services/identity/auth.service'
 
 const LOCAL_STORAGE_ACCESS_TOKEN = 'ACCESS_TOKEN'
 const LOCAL_STORAGE_REFRESH_TOKEN = 'REFRESH_TOKEN'

@@ -1,4 +1,7 @@
-import { IUser } from './user.types'
+//
+// Auth type(s)
+//
+import { IUser } from "./user.types"
 
 export interface ILogin {
     username: string,

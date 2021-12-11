@@ -1,6 +1,6 @@
 import { GetterTree, ActionTree, MutationTree, Module } from 'vuex'
-import { IRootState, IRole, IRoleState, IRoleSearchReq, IRoleSearchResp } from '../../types'
-import RoleService from '../../services/role.service'
+import { IRootState, IRole, IRoleState, IRoleSearchReq, IRoleSearchResp } from '../../../types'
+import RoleService from '../../../services/identity/role.service'
 
 const state: IRoleState = {
     role: undefined,

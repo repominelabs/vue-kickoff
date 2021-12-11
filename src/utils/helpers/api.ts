@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios'
 import { IApiResponse, IRefreshToken } from '../../types'
-import StorageService from '../../services/storage.service'
+import StorageService from '../../services/common/storage.service'
 import router from '../../router'
 import store from '../../store'
 

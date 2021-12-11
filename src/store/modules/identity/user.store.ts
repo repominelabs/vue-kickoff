@@ -1,6 +1,6 @@
 import { GetterTree, ActionTree, MutationTree, Module } from 'vuex'
-import { IRootState, IUser, IUserState, IUserSearchReq, IUserSearchResp, IUserRoleReq, IRole } from '../../types'
-import UserService from '../../services/user.service'
+import { IRootState, IUser, IUserState, IUserSearchReq, IUserSearchResp, IUserRoleReq, IRole } from '../../../types'
+import UserService from '../../../services/identity/user.service'
 
 const state: IUserState = {
     user: undefined,

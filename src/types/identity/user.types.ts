@@ -1,4 +1,7 @@
-import { IRole } from './role.types'
+//
+// User type(s)
+//
+import { IRole } from "./role.types"
 
 export interface IUser {
     userId?: number,

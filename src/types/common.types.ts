@@ -4,3 +4,7 @@ export interface IApiResponse<T> {
     errorCode: number,
     errorDesc: string
 }
+
+export interface IRootState {
+    version: string
+}

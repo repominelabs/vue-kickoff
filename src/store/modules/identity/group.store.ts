@@ -1,6 +1,6 @@
 import { GetterTree, ActionTree, MutationTree, Module } from 'vuex'
-import { IRootState, IGroup, IGroupState, IGroupSearchReq, IGroupSearchResp, IGroupUserReq, IUser } from '../../types'
-import GroupService from '../../services/group.service'
+import { IRootState, IGroup, IGroupState, ISearchGroupsRequest, ISearchGroupsResponse, IAddToUserRequest, IRemoveFromUserRequest, IUser } from '../../../types'
+import GroupService from '../../../services/identity/group.service'
 
 const state: IGroupState = {
     group: undefined,
@@ -20,60 +20,60 @@ const getters: GetterTree<IGroupState, IRootState> = {
 }
 
 const actions: ActionTree<IGroupState, IRootState> = {
-    async search({ commit }, payload: IGroupSearchReq): Promise<any> {
-        return await GroupService.search(payload).then(response => {
-            const data: IGroupSearchResp = response && response.data && response.data.response
-            commit('search', data)
+    async searchGroupsAsync({ commit }, payload: ISearchGroupsRequest): Promise<any> {
+        return await GroupService.searchGroupsAsync(payload).then(response => {
+            const data: ISearchGroupsResponse = response && response.data && response.data.response
+            commit('searchGroupsAsync', data)
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async save({ commit }, payload: IGroup): Promise<any> {
-        return await GroupService.save(payload).then(response => {
+    async saveGroupAsync({ commit }, payload: IGroup): Promise<any> {
+        return await GroupService.saveGroupAsync(payload).then(response => {
             const data: IGroup = response && response.data && response.data.response
-            commit('save', data)
+            commit('saveGroupAsync', data)
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async update({ commit }, payload: { group: IGroup, index: number }): Promise<any> {
-        return await GroupService.update(payload.group).then(response => {
+    async updateGroupAsync({ commit }, payload: { group: IGroup, index: number }): Promise<any> {
+        return await GroupService.updateGroupAsync(payload.group).then(response => {
             const data: any = response && response.data && response.data.response
-            commit('update', payload)
+            commit('updateGroupAsync', payload)
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async delete({ commit }, payload: { groupId: number, index: number }): Promise<any> {
-        return await GroupService.delete(payload.groupId).then(response => {
+    async deleteGroupAsync({ commit }, payload: { group: IGroup, index: number }): Promise<any> {
+        return await GroupService.deleteGroupAsync(payload.group).then(response => {
             const data: any = response && response.data && response.data
-            commit('delete', payload)
+            commit('deleteGroupAsync', payload.index)
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async addGroupUser({ commit }, payload: { user: IUser, groupUserReq: IGroupUserReq, groupIndex: number, userIndex: number }): Promise<any> {
-        return await GroupService.addGroupUser(payload.groupUserReq).then(response => {
+    async addToUserAsync({ commit }, payload: { user: IUser, groupUserReq: IAddToUserRequest, groupIndex: number, userIndex: number }): Promise<any> {
+        return await GroupService.addToUserAsync(payload.groupUserReq).then(response => {
             const data: any = response && response.data && response.data
-            commit('addGroupUser')
+            commit('addToUserAsync')
 
             return Promise.resolve(data)
         }).catch(error => {
             return Promise.reject(error)
         })
     },
-    async deleteGroupUser({ commit }, payload: { groupUserReq: IGroupUserReq, groupIndex: number, userIndex: number }): Promise<any> {
-        return await GroupService.deleteGroupUser(payload.groupUserReq).then(response => {
+    async removeFromUserAsync({ commit }, payload: { groupUserReq: IRemoveFromUserRequest, groupIndex: number, userIndex: number }): Promise<any> {
+        return await GroupService.removeFromUserAsync(payload.groupUserReq).then(response => {
             const data: any = response && response.data && response.data
-            commit('deleteGroupUser', payload)
+            commit('removeFromUserAsync', payload)
 
             return Promise.resolve(data)
         }).catch(error => {
@@ -83,29 +83,29 @@ const actions: ActionTree<IGroupState, IRootState> = {
 }
 
 const mutations: MutationTree<IGroupState> = {
-    search(state, data: IGroupSearchResp) {
+    searchGroupsAsync(state, data: ISearchGroupsResponse) {
         state.groups = data.groups
         state.length = data.length
     },
-    save(state, data: IGroup) {
+    saveGroupAsync(state, data: IGroup) {
         state.groups?.push(data)
     },
-    update(state, data: { group: IGroup, index: number }) {
+    updateGroupAsync(state, data: { group: IGroup, index: number }) {
         if (state.groups != undefined) {
             state.groups[data.index] = Object.assign({}, data.group)
         }
     },
-    delete(state, data: { groupId: number, index: number }) {
+    deleteGroupAsync(state, index: number ) {
         if (state.groups != undefined) {
-            state.groups.splice(1, data.index)
+            state.groups.splice(1, index)
         }
     },
-    addGroupUser(state, data: { user: IUser, groupUserReq: IGroupUserReq, groupIndex: number, userIndex: number }) {
+    addToUserAsync(state, data: { user: IUser, groupUserReq: IAddToUserRequest, groupIndex: number, userIndex: number }) {
         if (state.groups != undefined) {
             state.groups[data.groupIndex].users?.push(data.user)
         }
     },
-    deleteGroupUser(state, data: { groupIndex: number, userIndex: number }) {
+    removeFromUserAsync(state, data: { groupIndex: number, userIndex: number }) {
         if (state.groups != undefined) {
             state.groups[data.groupIndex].users?.splice(1, data.userIndex)
         }

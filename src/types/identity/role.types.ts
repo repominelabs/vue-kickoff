@@ -1,3 +1,6 @@
+//
+// Role type(s)
+//
 export interface IRole {
     roleId?: number,
     roleName: string,

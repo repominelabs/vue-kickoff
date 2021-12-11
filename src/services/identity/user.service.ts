@@ -1,7 +1,7 @@
-import Api from '../utils/helpers/api'
-import config from '../config'
+import Api from '../../utils/helpers/api'
+import config from '../../config'
 import { AxiosResponse } from 'axios'
-import { IApiResponse, IUser, IUserSearchReq, IUserSearchResp, IUserRoleReq } from '../types'
+import { IApiResponse, IUser, IUserSearchReq, IUserSearchResp, IUserRoleReq } from '../../types'
 
 class UserService extends Api {
     private static _instance?: UserService

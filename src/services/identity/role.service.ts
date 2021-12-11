@@ -1,7 +1,7 @@
-import Api from '../utils/helpers/api'
-import config from '../config'
+import Api from '../../utils/helpers/api'
+import config from '../../config'
 import { AxiosResponse } from 'axios'
-import { IApiResponse, IRole, IRoleSearchReq, IRoleSearchResp } from '../types'
+import { IApiResponse, IRole, IRoleSearchReq, IRoleSearchResp } from '../../types'
 
 class RoleService extends Api {
     private static _instance?: RoleService

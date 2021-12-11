@@ -1,4 +1,7 @@
-import { IUser } from './user.types'
+//
+// Group type(s)
+//
+import { IUser } from "./user.types"
 
 export interface IGroup {
     groupId?: number,
@@ -13,18 +16,23 @@ export interface IGroupState {
     length: number
 }
 
-export interface IGroupSearchReq {
+export interface ISearchGroupsRequest {
     limit: number,
     page: number,
     key: string
 }
 
-export interface IGroupSearchResp {
+export interface ISearchGroupsResponse {
     length: number,
     groups: IGroup[]
 }
 
-export interface IGroupUserReq {
+export interface IAddToUserRequest {
+    groupId?: number,
+    userId?: number,
+}
+
+export interface IRemoveFromUserRequest {
     groupId?: number,
     userId?: number,
 }
