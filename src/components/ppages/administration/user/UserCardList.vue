@@ -15,7 +15,7 @@ const users = reactive<IUser[]>(
     ]
 )
 
-store.dispatch('user/search', {}).then(resp => {
+store.dispatch('user/searchUsersAsync', {}).then(resp => {
     // users = resp.Data
 }).catch(err => {
     // $toast.fire({ icon: 'error', title: 'Create user failed' })

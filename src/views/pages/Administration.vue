@@ -21,9 +21,9 @@ function setIs(component: any, search: string | null) {
     <div class="container">
         <nav class="mb-5">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button @click="setIs(Group, 'group')" class="nav-link" data-bs-toggle="tab">Groups</button>
-                <button @click="setIs(User, 'user')" class="nav-link active" data-bs-toggle="tab">Users</button>
-                <button @click="setIs(Role, 'role')" class="nav-link" data-bs-toggle="tab">Roles</button>
+                <button @click="setIs(Group, 'group/searchGroupsAsync')" class="nav-link" data-bs-toggle="tab">Groups</button>
+                <button @click="setIs(User, 'user/searchUsersAsync')" class="nav-link active" data-bs-toggle="tab">Users</button>
+                <button @click="setIs(Role, 'role/searchRolesAsync')" class="nav-link" data-bs-toggle="tab">Roles</button>
                 <button @click="setIs(UserAddMultiple, null)" class="nav-link" data-bs-toggle="tab">
                     <i class="bi bi-plus-lg"></i>
                     Add Multiple

@@ -33,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/pages/Administration.vue'),
     meta: {
       layout: LayoutNav,
-      search: 'user'
+      search: 'user/searchUsersAsync'
     }
   },
   {

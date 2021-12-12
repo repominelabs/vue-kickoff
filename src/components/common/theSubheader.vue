@@ -10,7 +10,7 @@ const route = useRoute()
 // Methods
 async function search() {
     if (route.meta.search) {
-        await store.dispatch(`${route.meta.search}/search`, {}).then(resp => {
+        await store.dispatch(route.meta.search, {}).then(resp => {
             //
         }).catch(err => {
             //
