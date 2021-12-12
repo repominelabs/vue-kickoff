@@ -5,7 +5,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
-    "test:util": "jest tests/unit",
+    "test:unit": "jest tests/unit",
     "test:e2e": "jest tests/e2e"
   },
   "dependencies": {
